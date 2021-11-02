@@ -1,8 +1,9 @@
 <template>
   <section>
     <div v-if="networkData">
-      <span>{{ networkData.nodes.length }} nodes</span>
-      <span>{{ networkData.edges.length }} edges</span>
+      <!-- <span>{{ networkData.nodes.length }} nodes</span> -->
+      <span>{{ highlightNodes.length }} highlighted nodes</span>
+      <!-- <span>{{ networkData.edges.length }} edges</span> -->
       <div id="q5-container" ref="q5canvas"></div>
     </div>
   </section>
@@ -18,12 +19,12 @@ export default {
     networkData: Object,
     width: Number,
     height: Number,
+    highlightNodes: Array,
   },
   data: function () {
     return {
       showNodes: false,
       showEdges: true,
-      highlightNodeIDs: ["13858"],
       q5: null,
       simulation: null,
       xExtent: [0, 0],
@@ -81,8 +82,8 @@ export default {
       if (this.showEdges) {
         this.networkData.edges.forEach((l) => {
           const linkTouchesHighlightNode =
-            this.highlightNodeIDs.includes(l.source.id) ||
-            this.highlightNodeIDs.includes(l.target.id);
+            this.highlightNodes.includes(l.source.id) ||
+            this.highlightNodes.includes(l.target.id);
           if (linkTouchesHighlightNode) {
             this.q5.strokeWeight(2.5);
             this.q5.stroke("rgba(255,10,10,0.9)");
@@ -98,7 +99,7 @@ export default {
 
       if (this.showNodes) {
         this.networkData.nodes.forEach((n) => {
-          const isHighlightNode = this.highlightNodeIDs.includes(n.id);
+          const isHighlightNode = this.highlightNodes.includes(n.id);
           if (isHighlightNode) {
             this.q5.fill("rgba(255,10,10,0.9)");
           } else {
