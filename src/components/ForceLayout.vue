@@ -23,7 +23,7 @@ export default {
   },
   data: function () {
     return {
-      showNodes: false,
+      showNodes: true,
       showEdges: true,
       q5: null,
       simulation: null,
@@ -85,10 +85,10 @@ export default {
             this.highlightNodes.includes(l.source.id) ||
             this.highlightNodes.includes(l.target.id);
           if (linkTouchesHighlightNode) {
-            this.q5.strokeWeight(2.5);
+            this.q5.strokeWeight(l.size * 0.66);
             this.q5.stroke("rgba(255,10,10,0.9)");
           } else {
-            this.q5.strokeWeight(0.25);
+            this.q5.strokeWeight(l.size * 0.3);
             this.q5.stroke("rgba(255,255,255,0.1)");
           }
           this.q5.line(l.source.x, l.source.y, l.target.x, l.target.y);
@@ -106,7 +106,13 @@ export default {
             this.q5.fill("rgba(255,255,255,1)");
           }
           // this.q5.fill(n.color);
-          this.q5.circle(n.x, n.y, 1.5);
+          this.q5.circle(
+            n.x,
+            n.y,
+            Math.sqrt(n.size) * 0.72,
+            0,
+            n.attributes["Weighted Degree"]
+          );
         });
       }
     },

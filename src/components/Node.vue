@@ -12,17 +12,17 @@
 // import * as d3 from 'd3'
 
 export default {
-  name: "Node",
+  name: 'Node',
   props: {
-    node: Object,
+    node: Object
   },
   data: function () {
-    return {};
+    return {}
   },
   computed: {},
   mounted: function () {},
-  methods: {},
-};
+  methods: {}
+}
 </script>
 
 <style></style>

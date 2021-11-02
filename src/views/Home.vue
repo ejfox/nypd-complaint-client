@@ -5,15 +5,13 @@
       :networkData="networkData"
       :width="width"
       :height="height"
-      :highlightNodes="highlightNodes"
-    />
+      :highlightNodes="highlightNodes" />
     <section id="highlight-node-list">
       <div
         class="node-item"
         v-for="node in highlightNodesRaw"
         :key="node.id"
-        @click="nodeClick(node)"
-      >
+        @click="nodeClick(node)">
         <Node :node="node" />
       </div>
     </section>
@@ -24,17 +22,17 @@
 // import * as d3 from "d3";
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import ForceLayout from "@/components/ForceLayout.vue";
-import Node from "@/components/Node.vue";
-import networkData from "@/data/ingredientUniverse_weight_modularity.r1.json";
+import ForceLayout from '@/components/ForceLayout.vue'
+import Node from '@/components/Node.vue'
+import networkData from '@/data/ingredientUniverse_weight_modularity.r1.json'
 
-import Fuse from "fuse.js";
+import Fuse from 'fuse.js'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     ForceLayout,
-    Node,
+    Node
   },
   data: function () {
     return {
@@ -42,42 +40,42 @@ export default {
       width: 1284,
       height: 1284,
       nameSearch: null,
-      searchQuery: "",
+      searchQuery: '',
       highlightNodes: [],
-      highlightNodesRaw: [],
-    };
+      highlightNodesRaw: []
+    }
   },
   methods: {
     nodeClick: function (node) {
-      console.log("nodeclick", node);
-      this.highlightNodesRaw = [node];
+      console.log('nodeclick', node)
+      this.highlightNodesRaw = [node]
       this.highlightNodes = [node.item.id]
-    },
+    }
   },
   watch: {
     searchQuery: function (val) {
       if (this.nameSearch && val.length > 5) {
-        const searchResults = this.nameSearch.search(val);
-        this.highlightNodesRaw = searchResults;
+        const searchResults = this.nameSearch.search(val)
+        this.highlightNodesRaw = searchResults
         this.highlightNodes = searchResults.map((d) => {
-          return d.item.id;
-        });
+          return d.item.id
+        })
       }
-    },
+    }
   },
   mounted: function () {
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.width = window.innerWidth
+    this.height = window.innerHeight
 
     this.nameSearch = new Fuse(this.networkData.nodes, {
       includeScore: true,
       threshold: 0.25,
       findAllMatches: true,
       // keys: ["attributes.firstName", "attributes.lastName"],
-      keys: ["label"],
-    });
-  },
-};
+      keys: ['label']
+    })
+  }
+}
 </script>
 <style>
 #name-search {
