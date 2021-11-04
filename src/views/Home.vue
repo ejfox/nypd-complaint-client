@@ -54,7 +54,7 @@ export default {
   },
   watch: {
     searchQuery: function (val) {
-      if (this.nameSearch && val.length > 5) {
+      if (this.nameSearch && val.length >= 4) {
         const searchResults = this.nameSearch.search(val)
         this.highlightNodesRaw = searchResults
         this.highlightNodes = searchResults.map((d) => {
