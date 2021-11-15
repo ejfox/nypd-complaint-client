@@ -20,9 +20,16 @@ export default {
     domNode: String,
     networkData: {
       type: NetworkData,
+      required: true,
     },
-    width: Width,
-    height: Height,
+    width: {
+      type: Width,
+      required: true,
+    },
+    height: {
+      type: Height,
+      required: true,
+    },
     highlightNodes: Array,
   },
 };
