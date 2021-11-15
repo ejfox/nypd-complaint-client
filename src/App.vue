@@ -1,14 +1,32 @@
 <template>
-  <div id="app">
-    <!-- 
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    -->
-    <router-view />
-  </div>
+  <img alt="Vue logo" src="./assets/logo.png" />
+  <HelloWorld msg="Welcome to Your Vue.js App" />
 </template>
+
+<script>
+import HelloWorld from "./components/HelloWorld.vue";
+import {
+  NetworkData,
+  Width,
+  Height,
+} from "@/types/global";
+
+export default {
+  name: "App",
+  components: {
+    HelloWorld,
+  },
+  props: {
+    domNode: String,
+    networkData: {
+      type: NetworkData,
+    },
+    width: Width,
+    height: Height,
+    highlightNodes: Array,
+  },
+};
+</script>
 
 <style>
 #app {
@@ -17,5 +35,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin-top: 60px;
 }
 </style>

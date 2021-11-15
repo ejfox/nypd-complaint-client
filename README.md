@@ -13,7 +13,6 @@ Once your data is loaded onto your webpage, you can add it to the network visual
 ```
 // Basic
 networkCartography({
-  loadFile: true,
   networkData: 'data.json'
 })
 

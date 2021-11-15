@@ -1,12 +1,17 @@
-import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import { createApp } from "vue";
 
-Vue.config.productionTip = false;
+const networkCartography = (options) => {
+  const { domNode, networkData, width, height, highlightNodes } = options;
+  console.log(domNode, networkData, width, height, highlightNodes);
 
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+  createApp(App).mount("#app");
+};
+
+networkCartography({
+  domNode: "test",
+  networkData: "test",
+  width: "test",
+  height: "test",
+  highlightNodes: "test",
+});
