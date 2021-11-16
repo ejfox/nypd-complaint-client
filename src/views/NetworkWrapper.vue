@@ -10,7 +10,7 @@
 
 <script>
 import Network from "@/components/Network.vue";
-import {NetworkCartographyOptions} from "@/types/global";
+import { NetworkCartographyOptions } from "@/types/global";
 
 export default {
   name: "NetworkWrapper",
@@ -33,5 +33,4 @@ export default {
   props: NetworkCartographyOptions,
 };
 </script>
-<style>
-</style>
+<style></style>

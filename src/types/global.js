@@ -1,12 +1,8 @@
 const REQUIRED_NETWORK_DATA_KEYS = ["edges", "nodes"];
 
 export const NetworkData = {
-  type: [String, Object],
+  type: [Object],
   validator: (obj) => {
-    if (typeof obj === "string") {
-      return true;
-    }
-    // eslint-disable-next-line no-prototype-builtins
     const hasKey = (key) => obj.hasOwnProperty(key);
     return REQUIRED_NETWORK_DATA_KEYS.every((requiredKey) => {
       if (hasKey(requiredKey)) {
@@ -20,6 +16,11 @@ export const NetworkData = {
       }
     });
   },
+};
+
+export const NetworkDataParameter = {
+  type: [String, Object],
+  required: true,
 };
 
 const integerFactory = ({ fieldName, required }) => ({
@@ -44,7 +45,7 @@ const Height = integerFactory({
 
 export const NetworkCartographyOptions = {
   domSelector: String,
-  networkData: NetworkData,
+  networkData: NetworkDataParameter,
   width: Width,
   height: Height,
   highlightNodes: Array,

@@ -11,12 +11,13 @@
 
 <script>
 import * as d3 from 'd3'
+import { NetworkData } from "@/types/global";
 // import d3ForceLimit from "d3-force-limit";
 
 export default {
   name: 'Network',
   props: {
-    networkData: Object,
+    networkData: NetworkData,
     width: Number,
     height: Number,
     highlightNodes: Array
@@ -26,6 +27,7 @@ export default {
       showNodes: true,
       showEdges: true,
       showLabels: true,
+      showFiltered: true,
       q5: null,
       simulation: null,
       xExtent: [0, 0],
@@ -36,22 +38,16 @@ export default {
   },
   computed: {},
   mounted: function () {
-    console.log("Network successfully mounted! networkData:", this.networkData)
-    try {
-      this.q5 = new Q5() // eslint-disable-line
+    this.q5 = new Q5() // eslint-disable-line
 
-      this.xExtent = d3.extent(this.networkData.nodes, (d) => d.x)
-      this.yExtent = d3.extent(this.networkData.nodes, (d) => d.y)
+    this.xExtent = d3.extent(this.networkData.nodes, (d) => d.x)
+    this.yExtent = d3.extent(this.networkData.nodes, (d) => d.y)
 
-      this.xScale = d3.scaleLinear().domain(this.xExtent).range([0, this.width])
-      this.yScale = d3.scaleLinear().domain(this.yExtent).range([0, this.height])
+    this.xScale = d3.scaleLinear().domain(this.xExtent).range([0, this.width])
+    this.yScale = d3.scaleLinear().domain(this.yExtent).range([0, this.height])
 
-      this.setup()
-      this.draw()
-
-    } catch (e) {
-      console.log("Network mount error :(", e)
-    }
+    this.setup()
+    this.draw()
   },
   updated: function () {},
   unmounted: function () {
