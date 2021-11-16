@@ -1,17 +1,22 @@
 import App from "./App.vue";
 import { createApp } from "vue";
+import networkData from "@/data/ingredientUniverse_weight_modularity.r1.json";
 
 const networkCartography = (options) => {
-  const { domNode, networkData, width, height, highlightNodes } = options;
-  console.log(domNode, networkData, width, height, highlightNodes);
+  const { domSelector, networkData, width, height, highlightNodes } = options;
+  console.log(domSelector, networkData, width, height, highlightNodes);
 
-  createApp(App).mount("#app");
+  createApp(App, { options }).mount(domSelector);
 };
 
-networkCartography({
-  domNode: "test",
-  networkData: "test",
-  width: "test",
-  height: "test",
-  highlightNodes: "test",
-});
+setTimeout(
+  () =>
+    networkCartography({
+      domSelector: "#app",
+      networkData,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      highlightNodes: [],
+    }),
+  500
+);

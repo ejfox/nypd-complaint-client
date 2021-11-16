@@ -5,7 +5,8 @@ export const NetworkData = [
   {
     type: Object,
     validator: (value) => {
-      const hasKey = (key) => value.hasOwn(key);
+      // eslint-disable-next-line no-prototype-builtins
+      const hasKey = (key) => value.hasOwnProperty(key);
       return REQUIRED_NETWORK_DATA_KEYS.every((requiredKey) => {
         console.error(
           `Missing field: when networkData is an Object, '${requiredKey}' is a required field.`
@@ -26,3 +27,20 @@ const integerFactory = (fieldName) => ({
 
 export const Width = integerFactory("width");
 export const Height = integerFactory("height");
+
+export const NetworkCartographyOptions = {
+  domSelector: String,
+  networkData: {
+    type: NetworkData,
+    required: true,
+  },
+  width: {
+    type: Width,
+    required: true,
+  },
+  height: {
+    type: Height,
+    required: true,
+  },
+  highlightNodes: Array,
+};

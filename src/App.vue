@@ -1,36 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <NetworkWrapper
+    :v-if="options"
+    :networkData="options.networkData"
+    :width="options.width"
+    :height="options.height"
+    :highlightNodes="options.highlightNodes"
+  />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-import {
-  NetworkData,
-  Width,
-  Height,
-} from "@/types/global";
+import NetworkWrapper from "@/views/NetworkWrapper.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    NetworkWrapper,
+  },
+  mounted() {
+    console.log('App mounted', this.options.networkData);
   },
   props: {
-    domNode: String,
-    networkData: {
-      type: NetworkData,
-      required: true,
-    },
-    width: {
-      type: Width,
-      required: true,
-    },
-    height: {
-      type: Height,
-      required: true,
-    },
-    highlightNodes: Array,
+    options: Object,
   },
 };
 </script>

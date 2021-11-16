@@ -18,7 +18,7 @@ networkCartography({
 
 // Advanced
 networkCartography({
-  domNode: 'graphContainer',
+  domSelector: 'graphContainer',
   networkData: {
     nodes: [{
       x: the x location of the node in space
