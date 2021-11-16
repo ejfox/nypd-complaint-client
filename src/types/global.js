@@ -1,46 +1,51 @@
 const REQUIRED_NETWORK_DATA_KEYS = ["edges", "nodes"];
 
-export const NetworkData = [
-  String,
-  {
-    type: Object,
-    validator: (value) => {
-      // eslint-disable-next-line no-prototype-builtins
-      const hasKey = (key) => value.hasOwnProperty(key);
-      return REQUIRED_NETWORK_DATA_KEYS.every((requiredKey) => {
+export const NetworkData = {
+  type: [String, Object],
+  validator: (obj) => {
+    if (typeof obj === "string") {
+      return true;
+    }
+    // eslint-disable-next-line no-prototype-builtins
+    const hasKey = (key) => obj.hasOwnProperty(key);
+    return REQUIRED_NETWORK_DATA_KEYS.every((requiredKey) => {
+      if (hasKey(requiredKey)) {
+        return true;
+      } else {
         console.error(
-          `Missing field: when networkData is an Object, '${requiredKey}' is a required field.`
+          `Missing field: when networkData is an Object, '${requiredKey}' is a required field.`,
+          obj
         );
-        return hasKey(requiredKey);
-      });
-    },
+        return false;
+      }
+    });
   },
-];
+};
 
-const integerFactory = (fieldName) => ({
-  type: Number,
-  validator: (num) => {
-    console.error(`Type error: ${fieldName} must be an Integer.`);
-    return num - Math.floor(num) === 0;
+const integerFactory = ({ fieldName, required }) => ({
+  validator: (number) => {
+    const isInteger = Number.isInteger(number);
+    if (!isInteger) {
+      console.error(`Type error: ${fieldName} must be an Integer.`);
+    }
+    return isInteger;
   },
+  required,
 });
 
-export const Width = integerFactory("width");
-export const Height = integerFactory("height");
+const Width = integerFactory({
+  fieldName: "width",
+  required: true,
+});
+const Height = integerFactory({
+  fieldName: "height",
+  required: true,
+});
 
 export const NetworkCartographyOptions = {
   domSelector: String,
-  networkData: {
-    type: NetworkData,
-    required: true,
-  },
-  width: {
-    type: Width,
-    required: true,
-  },
-  height: {
-    type: Height,
-    required: true,
-  },
+  networkData: NetworkData,
+  width: Width,
+  height: Height,
   highlightNodes: Array,
 };

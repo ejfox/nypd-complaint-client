@@ -17,7 +17,7 @@ export default {
     NetworkWrapper,
   },
   mounted() {
-    console.log('App mounted', this.options.networkData);
+    console.log('App mounted', this.options);
   },
   props: {
     options: Object,

@@ -36,16 +36,22 @@ export default {
   },
   computed: {},
   mounted: function () {
-    this.q5 = new Q5() // eslint-disable-line
+    console.log("Network successfully mounted! networkData:", this.networkData)
+    try {
+      this.q5 = new Q5() // eslint-disable-line
 
-    this.xExtent = d3.extent(this.networkData.nodes, (d) => d.x)
-    this.yExtent = d3.extent(this.networkData.nodes, (d) => d.y)
+      this.xExtent = d3.extent(this.networkData.nodes, (d) => d.x)
+      this.yExtent = d3.extent(this.networkData.nodes, (d) => d.y)
 
-    this.xScale = d3.scaleLinear().domain(this.xExtent).range([0, this.width])
-    this.yScale = d3.scaleLinear().domain(this.yExtent).range([0, this.height])
+      this.xScale = d3.scaleLinear().domain(this.xExtent).range([0, this.width])
+      this.yScale = d3.scaleLinear().domain(this.yExtent).range([0, this.height])
 
-    this.setup()
-    this.draw()
+      this.setup()
+      this.draw()
+
+    } catch (e) {
+      console.log("Network mount error :(", e)
+    }
   },
   updated: function () {},
   unmounted: function () {
